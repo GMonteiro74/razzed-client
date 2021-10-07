@@ -1,12 +1,172 @@
-.App {
-  text-align: center;
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
 }
 
-.App-logo {
+.App {
+  text-align: center;
+  font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+}
+
+.bg-cover {
+  background:linear-gradient(0deg, rgba(199, 199, 199, 0.7),rgba(199, 199, 199, 0.7)), url(porto.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  min-height: 90vh;
+}
+
+.App-logo {   
   height: 40vmin;
   pointer-events: none;
 }
 
+.main-title {
+  padding: 40px 0;
+}
+
+.main-cont {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.main-cont > div {
+  gap: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.home-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7vh;
+}
+
+.hero-card-btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 60%;
+  justify-content: space-around;
+}
+
+.hero-card-btns button {
+  padding: 15px 45px;
+}
+
+.card-container {
+  height: auto;
+  min-height: 75vh;
+  padding-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 5% 0;
+  /* border: 1px solid rgba(128, 128, 128, 0.411); */
+  border-radius: 20px;
+}
+
+.cta-card {
+  background-color: rgb(228, 228, 228);
+  padding: 10px 35px;
+  color: #282c34;
+  border-radius: 10px;
+}
+
+.img-card {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 150px;
+  
+}
+
+.profile-card img {
+  width: 100%;
+  height: 25%;
+  border-radius: 20px;
+  /* border: 1px solid rgb(22, 22, 22); */
+}
+
+.text-card {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+/* FEED */
+.feed-container {
+  margin: 0 auto;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  padding-bottom: 40px;
+
+}
+
+.feed-card {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5% 0;
+  border-radius: 20px;
+}
+
+.green-btn {
+  background-color: rgb(71, 175, 45);
+  padding: 10px 35px;
+  color: #d8d8d8;
+  border-radius: 10px;
+}
+
+.red-btn {
+  background-color: rgb(175, 60, 45);
+  padding: 10px 35px;
+  color: #d8d8d8;
+  border-radius: 10px;
+}
+
+.reply-sect {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 40px 0;
+}
+
+.reply-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.edit-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

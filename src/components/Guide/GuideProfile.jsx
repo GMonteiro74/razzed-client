@@ -18,24 +18,24 @@ export default function GuideProfile({ match }) {
             
         }
         getGuideDetails();
-        // showNotifications();
         
     }, [])
 
-    // const showNotifications = () => {
-    //     notifications.length > 0 && 
-    //         notifications.forEach(notification => {
-    //             toast.info(notification.message)
-    //         })
-    // }
-    
+    const clickNotification = async () => {
+        const response = await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/tour-guides/${match.params.id}/notification/delete`, { withCredentials: true });
+        console.log(response);
+    }
 
     return (
         <div className='bg-cover'>
 
         {(notifications.length > 0 && loggedInUser._id === guide._id) && 
             notifications.forEach(notification => {
-                toast.info(notification.message)
+                toast.info(notification.message, {
+                    autoClose: false,
+                    onClose: clickNotification(),
+                    closeOnClick: true,
+                })
             })
          }
         
@@ -51,18 +51,18 @@ export default function GuideProfile({ match }) {
         </div>
         <div className='text-card'>
         <h1 className='text-2xl'>{guide.firstName} {guide.lastName}</h1>
-        <h3 className='text-lg'>Based in {guide.location}</h3>
-        <p className='text-base'>Biography: {guide.bio}</p>
-        <p>Contact: {guide.email}</p>
+        <h3 className='text-lg'>Based in <span className='font-semibold'>{guide.location}</span></h3>
+        <p className='text-base'><span className='font-semibold'>Biography:</span> {guide.bio}</p>
+        <p><span className='font-semibold'>Contact:</span> {guide.email}</p>
         <ul>
-        <p>Spoken languages:</p>
+        <p><span className='font-semibold'>Spoken languages:</span></p>
         {guide.languages && guide.languages.map(lang => {
             return(
                 <li>{lang}</li>                
             )
         })}
         </ul>
-        <p>Working since {guide.startedWorking}</p> 
+        <p>Working since <span className='font-semibold'>{guide.startedWorking}</span></p> 
         </div>              
             
         </div>

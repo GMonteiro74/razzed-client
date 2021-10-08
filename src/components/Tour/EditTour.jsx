@@ -79,7 +79,7 @@ export default function EditTour({ match }) {
 
         await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/my-tours/${match.params.id}`, body, { withCredentials: true });
         toast.success('Tour updated 🏰');
-        history.push(`/my-tours`);
+        history.push(`/`);
         
     }
     return (

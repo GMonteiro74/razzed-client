@@ -10,23 +10,36 @@ export default function AgencyProfile({ match }) {
     const loggedInUser = useContext(LoggedUserConsumer);
     const history = useHistory();
     const [agency, setAgency] = useState({});
+    const [tours, setTours] = useState([]);
     const [notifications, setNotifications] = useState([]);
     
-
     useEffect(() => {
         async function getAgencyDetails() {
             const response = await axios.get(`${process.env.REACT_APP_SERVER_HOSTNAME}/agencies/${match.params.id}`, { withCredentials: true })
+            console.log(response.data);
             setAgency(response.data);
+            setTours(response.data.tours)
             setNotifications(loggedInUser.notifications);
           }
           getAgencyDetails();
     }, [])
 
+    const clickNotification = async () => {
+        const response = await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/agencies/${match.params.id}/notification/delete`, { withCredentials: true });
+        console.log(response);
+    }
+
     return (
+        
         <div className='bg-cover'>
+        {console.log(loggedInUser.type)}
         {(notifications.length > 0 && loggedInUser._id === agency._id)&& 
             notifications.forEach(notification => {
-                toast.info(notification.message)
+                toast.info(notification.message, {
+                    autoClose: false,
+                    onClose: clickNotification(),
+                    closeOnClick: true,                    
+                })
             })
          }
          
@@ -37,15 +50,18 @@ export default function AgencyProfile({ match }) {
         <div className='img-card'>
         <img src={agency.imageUrl} alt={agency.email} />
         </div>
-        <div className='text-card'>
+        <div className='tours-card'>
         <h1 className='text-2xl'>{agency.name}</h1>
-        <h3 className='text-lg'>Based in {agency.location}</h3>
-        <p>Contact: {agency.email}</p>
+        <h3 className='text-lg'>Based in <span className='font-semibold'>{agency.location}</span></h3>
+        <p><span className='font-semibold'>Contact:</span> {agency.email}</p>
         <p>Est: {agency.established}</p> 
+        
         {loggedInUser._id === agency._id && <NavLink exact to={`/agencies/${agency._id}/edit`}>
             <button className='cta-card'>Edit</button>
         </NavLink>}
 
+        {(loggedInUser.type === 'guide' && tours.length > 0) && 
+        <NavLink className='cta-card' exact to={`/agencies/${agency._id}/booked-tours`}>Check Tours</NavLink>}
         
         </div>              
             

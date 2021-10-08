@@ -23,6 +23,8 @@ import AllTours from './components/Tour/AllTours';
 import EditTour from './components/Tour/EditTour';
 import 'react-calendar/dist/Calendar.css';
 import GuideMyTours from './components/Guide/GuideMyTours';
+import GuideList from './components/Guide/GuideList';
+import PreviousTours from './components/Agency/PreviousTours';
 
 
 
@@ -38,13 +40,13 @@ function App() {
 
     <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme={'dark'} />
 
-
     <Switch>
     
+      <GuideRoute exact path='/tours' component={AllTours} />
       <Route exact path='/tours/add' component={CreateTour} />
       <Route exact path='/' component={Home} />
-      <GuideRoute exact path='/tours' component={AllTours} />
       <GuideRoute exact path='/agencies' component={AgencyList} />
+      <AgencyRoute exact path='/tour-guides' component={GuideList} />
       <Route exact path='/agencies/signup' component={SignupAgencies} />
       <Route exact path='/tour-guides/signup' component={SignupGuides} />
       <Route exact path="/agencies/login" render={() => {
@@ -58,6 +60,7 @@ function App() {
       <Route exact path='/agencies/:id/my-tours' component={MyTours} />
       <Route exact path='/tour-guides/:id/my-tours' component={GuideMyTours} />
       <Route exact path='/my-tours/:id/edit' component={EditTour} />
+      <GuideRoute exact path='/agencies/:id/booked-tours' component={PreviousTours} />
       
     </Switch>
 

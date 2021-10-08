@@ -14,6 +14,7 @@ export default function MyTours() {
     useEffect(() => {
         async function getAllTours() {
             const response = await axios.get(`${process.env.REACT_APP_SERVER_HOSTNAME}/my-tours`, {withCredentials: true});
+        
             setTours(response.data)
         }
         getAllTours();
@@ -25,7 +26,9 @@ export default function MyTours() {
             const body = {
                 message: `You were accepted by ${loggedInUser.name} to do the tour. Check the my tours page for more details`
             }
+
             await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/tour-guides/${guideID}/notification/${tourID}`, body, { withCredentials:true });
+            await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/my-tours/${tourID}/reply`);
             await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/my-tours/${tourID}/${guideID}`)
             toast.success('Guide Accepted')
             history.push(`/agencies/${loggedInUser._id}`)
@@ -40,18 +43,20 @@ export default function MyTours() {
             message: `You were rejected by ${loggedInUser.name} to do the tour.`
         }
         await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/tour-guides/${guideID}/notification/${tourID}`, body, { withCredentials:true });
-        await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/my-tours/${tourID}/reject`)
+        await axios.put(`${process.env.REACT_APP_SERVER_HOSTNAME}/my-tours/${tourID}/remove-reply`)
         toast.success('Reply sent')
         history.push(`/agencies/${loggedInUser._id}`)
         
     }
 
     const handleDeleteTour = async (id) => {
-        await axios.delete(`${process.env.REACT_APP_SERVER_HOSTNAME}/my-tours/${id}`);
+        await axios.delete(`${process.env.REACT_APP_SERVER_HOSTNAME}/my-tours/${id}`, {withCredentials: true});
+        history.push(`/`)
         toast.info('Tour deleted');
     }
+
     return (
-        <div className='bg-cover'>
+        <div className='bg-cover-horizontal'>
         <h1 className='text-4xl text-gray-800 main-title font-semibold'>My Tours</h1>
         <div className='feed-container'>
 
@@ -61,11 +66,15 @@ export default function MyTours() {
           return (  
               <div className='feed-card bg-gray-800 text-gray-100'>
               <h1 className='text-lg font-semibold'>{tour.type} tour</h1>
-              <p>Language: {tour.language}</p>
-              <p>Description: {tour.description}</p>
+              <p><span className='font-semibold'>Language:</span> {tour.language}</p>
+              <p><span className='font-semibold'>Description:</span> {tour.description}</p>
               <p>From {new Date(tour.startDate).toLocaleDateString()} to {new Date(tour.finalDate).toLocaleDateString()}</p>
+              {tour.guide && 
+              
+                <p><span className='font-semibold'>Guide:</span><NavLink exact to={`/tour-guides/${tour.guide._id}`}> {tour.guide.firstName} {tour.guide.lastName}</NavLink></p>
+              }
               <p>{tour.pax} pax</p>
-              {tour.reply.sender != null && 
+              {(tour.reply !== false && tour.reply.sender !== null) && 
                 <div className='reply-sect'>
                   
                   <p>{tour.reply.sender.firstName} {tour.reply.sender.lastName} is interested in this tour. Do you want to hire him?</p>
@@ -76,6 +85,7 @@ export default function MyTours() {
                     <button className='cta-card'>Check profile</button>
                 </NavLink>
                 </div>
+                
                 </div>
                 
               }

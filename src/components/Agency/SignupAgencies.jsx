@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 
 export default function SignupAgencies() {

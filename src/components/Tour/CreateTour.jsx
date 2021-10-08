@@ -64,7 +64,6 @@ export default function CreateTour() {
         }
 
         await axios.post(`${process.env.REACT_APP_SERVER_HOSTNAME}/tours`, body, { withCredentials: true });
-        
         toast.success('Tour created 🏰');
         history.push('/');
         

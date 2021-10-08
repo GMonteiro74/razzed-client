@@ -12,7 +12,6 @@ export default function NavBar({loggedInUser, setLoggedInUser}) {
   const navigationLoggedInAgency = [
     { name: 'Create a tour', link: '/tours/add', current: true },
     { name: 'My Tours', link: `/agencies/${loggedInUser._id}/my-tours`, current: false },
-    { name: 'Calendar', link: '#', current: false },
   ]
   
   const navigationLoggedInGuide = [

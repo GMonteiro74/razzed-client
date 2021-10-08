@@ -17,21 +17,21 @@ export default function GuideMyTours() {
     }, [])
 
     return (
-        <div>
-        <h1 className='text-4xl text-gray-800 font-semibold'>My Tours</h1>
+        <div className='bg-cover-horizontal'>
+        <h1 className='text-4xl text-gray-800 main-title font-semibold'>My Tours</h1>
         <div className='feed-container'>
             
         {tours.length > 0 ? (
             <>
         {tours.map( tour => {
           return (  
-              <div className='feed-card text-gray-800 main-title'>
+              <div className='feed-card bg-gray-800 text-gray-100'>
               <h1 className='text-lg font-semibold'>{tour.type} tour</h1>
-              <p>Language: {tour.language}</p>
-              <p>Description: {tour.description}</p>
+              <p><span className='font-semibold'>Language: </span>{tour.language}</p>
+              <p><span className='font-semibold'>Description: </span>{tour.description}</p>
               <p>From {new Date(tour.startDate).toLocaleDateString()} to {new Date(tour.finalDate).toLocaleDateString()}</p>
               <p>{tour.pax} pax</p>
-              <NavLink exact to={`/agencies/${tour.agency.id}`}>Check agency profile</NavLink>
+              <NavLink className='cta-card' exact to={`/agencies/${tour.agency}`}>Check agency profile</NavLink>
               </div>
 
           )

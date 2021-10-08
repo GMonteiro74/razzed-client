@@ -18,6 +18,19 @@
   min-height: 90vh;
 }
 
+.bg-cover-horizontal {
+  background:linear-gradient(0deg, rgba(199, 199, 199, 0.7),rgba(199, 199, 199, 0.7)), url(lisboa2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  min-height: 90vh;
+}
+
+.agency-img {
+  height: 25%;
+  width: 25%;
+}
+
 .App-logo {   
   height: 40vmin;
   pointer-events: none;
@@ -107,10 +120,15 @@
   /* border: 1px solid rgb(22, 22, 22); */
 }
 
-.text-card {
+.text-card, .tours-card {
   display: flex;
   flex-direction: column;
   gap: 25px;
+}
+
+.tours-card {
+  display: flex;
+  align-items: center;
 }
 /* FEED */
 .feed-container {
@@ -132,6 +150,7 @@
   align-items: center;
   justify-content: space-around;
   padding: 5% 0;
+  gap: 30px;
   border-radius: 20px;
 }
 
